@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eu te amo há...</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="particles-bg" aria-hidden="true"></div>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <h1 id="hero-title">Eu te amo há <span class="heart-pulse">❤️</span></h1>
+            <div class="counter-container" id="time-counter">
+                <div class="time-box"><span id="years">00</span><small>Anos</small></div>
+                <div class="time-box"><span id="months">00</span><small>Meses</small></div>
+                <div class="time-box"><span id="days">00</span><small>Dias</small></div>
+                <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+                <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+                <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
+            </div>
+        </section>
+
+        <section class="journey" aria-labelledby="journey-title">
+            <h2 id="journey-title">Nossos momentos</h2>
+            <div class="carousel-wrapper">
+                <div class="carousel" id="carousel">
+                    <div class="carousel-item">
+                        <!-- Adicionamos o atributo data-description -->
+                        <img src="assets/img/niver.jpeg" alt="Lembrança 1"
+                            data-description="Este foi o dia em que, mesmo do nada(e com os salgadinhos atrasados), cantamos parabéns para a melhor mãe do mundo. Um dos momentos mais especiais que guardo comigo."
+                            loading="lazy">
+                        <p>Seu aniversário!</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/hamb.jpeg" alt="Lembrança 2"
+                            data-description="O dia em que rimos e aproveitamos até nossa barriga doer. Você é meu porto seguro."
+                            loading="lazy">
+                        <p>Lá no Brothers</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/shop.jpeg" alt="Lembrança 3"
+                            data-description="Nossos momentos que nos mostram que não precisamos de mais alguém para aproveitarmos nossa companhia."
+                            loading="lazy">
+                        <p>Idas maravilhosas</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/emil.jpeg" alt="Lembrança 4"
+                            data-description="Mesmo que nesse dia eu tenha chorado de primeira, a senhora manteu a calma e fez dar certo."
+                            loading="lazy">
+                        <p>Apresentações importantes</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/praia.jpeg" alt="Lembrança 4"
+                            data-description="Se eu pudesse, marcaria na terra e no céu o quanto eu te amo para sempre."
+                            loading="lazy">
+                        <p>Marcados para sempre</p>
+                    </div>
+                </div>
+
+                <div class="carousel-dots" id="carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="message-section">
+            <div class="message-card">
+                <p>Você é minha maior incentivadora, o pilar que sustenta meus sonhos e a razão pela qual cheguei até
+                    aqui. Cada segundo dessa contagem representa o tempo em que te amo — todos os dias da minha vida.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="eternal-footer">
+        <p>O tempo passa, mas meu amor por você só aumenta.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <div id="image-modal" class="modal">
+        <span class="close-modal" aria-label="Fechar">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Momento expandido">
+            <p id="modal-text"></p>
+        </div>
+    </div>
+</body>
+
+</html>

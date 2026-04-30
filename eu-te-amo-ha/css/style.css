@@ -1,0 +1,313 @@
+/* --- 1. Registro de Fonte Personalizada (@font-face) --- */
+/* Esta é a regra sênior: definir o arquivo de fonte local */
+@font-face {
+    font-family: 'Resolide Serif';
+    src: url('../assets/fonts/ResolideSerif.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Melhora a performance de carregamento */
+}
+
+/* --- Variáveis CSS: A base da nossa Paleta --- */
+:root {
+    --color-bg: #FCFAFF;        /* Fundo super suave */
+    --color-primary: #9370DB;   /* Roxo médio para destaques */
+    --color-secondary: #E6E6FA; /* Lilás claro para cards */
+    --color-text: #301934;      /* Roxo escuro para texto */
+    
+    /* --- 2. Atualização das Variáveis de Fonte --- */
+    --font-heading: 'Resolide Serif', serif; /* Sua fonte agora é a principal! */
+    --font-body: 'Inter', sans-serif;
+}
+
+/* --- Resets e Configurações Globais --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Hero Section & Contador --- */
+.hero {
+    text-align: center;
+    padding: 4rem 1.5rem;
+    background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-bg) 100%);
+}
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--color-primary);
+}
+.heart-pulse { display: inline-block; animation: pulse 1.5s infinite; }
+
+.counter-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.time-box {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(147, 112, 219, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.time-box span { font-size: 1.8rem; font-weight: 600; color: var(--color-primary); }
+.time-box small { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+
+/* --- 3. CORREÇÃO DAS IMAGENS GIGANTES E CARROSSEL --- */
+.journey {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+.journey h2 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Novo: Um wrapper para alinhar carrossel e pontos */
+.carousel-wrapper {
+    position: relative;
+    max-width: 600px; /* Limita a largura total no desktop */
+    margin: 0 auto;
+}
+
+/* O Container do Carrossel: CORRIGIDO */
+.carousel {
+    display: flex;
+    overflow-x: auto; /* Habilita a rolagem horizontal */
+    scroll-snap-type: x mandatory; /* Habilita o imã de rolagem */
+    gap: 1.5rem;
+    padding: 1rem 0 2rem;
+    cursor: grab;
+}
+.carousel::-webkit-scrollbar { display: none; } /* Oculta a barra de rolagem */
+
+/* Itens da Galeria como Cards: CORRIGIDO */
+.carousel-item {
+    flex: 0 0 90%; /* Toma 90% da largura da tela no mobile */
+    scroll-snap-align: center; /* Cada card para no centro ao rolar */
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+/* IMAGEM CORRIGIDA: Definimos limites claros */
+.carousel-item img {
+    width: 100%;       /* Ocupa toda a largura do seu card pai */
+    height: 350px;     /* Força uma altura padrão para todas as fotos */
+    object-fit: cover; /* Faz a foto preencher o espaço sem distorcer */
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+}
+.carousel-item p {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    font-style: italic;
+}
+
+/* Pontos de Navegação (Carousel Dots) */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.carousel:active {
+    cursor: grabbing; /* Mãozinha fechada ao clicar */
+}
+
+/* --- Estilos do Modal (Lightbox) --- */
+.modal {
+    display: none; /* Escondido por padrão na arquitetura */
+    position: fixed;
+    z-index: 1000; /* Fica acima de TUDO no site */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(48, 25, 52, 0.85); /* Fundo roxo escuro transparente */
+    backdrop-filter: blur(5px); /* Efeito de desfoque elegante no fundo */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Classe injetada via JS para mostrar o modal */
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--color-bg);
+    padding: 1.5rem;
+    border-radius: 16px;
+    max-width: 90%;
+    width: 400px; /* Limite de largura para não ficar gigante no PC */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transform: scale(0.8);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal.show .modal-content {
+    transform: scale(1); /* Efeito de "zoom in" ao abrir */
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    max-height: 50vh; /* Limita a altura para caber o texto na tela */
+}
+
+.modal-content p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--color-text);
+    font-style: italic;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: var(--color-secondary);
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: white;
+}
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.dot.active {
+    background-color: var(--color-primary);
+}
+
+/* --- Mensagem --- */
+.message-section { padding: 2rem 1.5rem 6rem; }
+.message-card {
+    background-color: #ffffff;
+    border-left: 4px solid var(--color-primary);
+    padding: 2rem;
+    border-radius: 0 12px 12px 0;
+    max-width: 600px;
+    margin: 0 auto;
+    font-style: italic;
+    box-shadow: 0 2px 8px rgba(147, 112, 219, 0.1);
+}
+
+/* --- Rodapé Fixo --- */
+.eternal-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    z-index: 100;
+}
+
+/* Micro-Animações */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Responsividade para telas maiores */
+@media (min-width: 768px) {
+    .counter-container { grid-template-columns: repeat(6, 1fr); }
+    /* No desktop, o card toma menos espaço e mostra um pouco das próximas */
+    .carousel-item { flex: 0 0 60%; }
+}
+
+/* --- Efeito de Fundo: Partículas --- */
+#particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Mantém as partículas atrás de todo o site */
+    overflow: hidden;
+    pointer-events: none; /* Garante que as partículas não atrapalhem os cliques no site */
+}
+
+.particle {
+    position: absolute;
+    bottom: -20px; /* Começa um pouco abaixo da tela */
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    opacity: 0.2; /* Bem transparente para ser sutil */
+    /* Efeito de brilho suave (glow) */
+    box-shadow: 0 0 10px rgba(147, 112, 219, 0.5); 
+    animation: floatUp linear infinite;
+}
+
+/* A animação: sobe flutuando e balançando de leve */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3; /* Fica visível suavemente */
+    }
+    50% {
+        transform: translateY(-50vh) translateX(20px);
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-120vh) translateX(-20px);
+        opacity: 0; /* Desaparece antes de sair da tela */
+    }
+}
+
+/* --- Ajuste no Card (Melhorando a UX) --- */
+.carousel-item {
+    /* ... mantenha suas regras anteriores e adicione: ... */
+    cursor: pointer; /* Agora o mouse vira "mãozinha" no card todo */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-item:hover {
+    transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+    box-shadow: 0 8px 20px rgba(147, 112, 219, 0.2);
+}
